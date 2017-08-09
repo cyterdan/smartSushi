@@ -4,7 +4,7 @@
 ### Java ###
 # Compiled class file
 *.class
-
+backend/target/*
 # Log file
 *.log
 
