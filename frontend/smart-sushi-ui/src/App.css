@@ -18,6 +18,23 @@
   font-size: large;
 }
 
+.Fright{
+  float: right;
+}
+
+.Runner{
+  float: right;
+  left: 45%;
+  position: absolute;
+}
+
+.Fleft{
+  float: left;
+}
+.Freset{
+  float:  none;
+}
+
 @keyframes App-logo-spin {
   from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }

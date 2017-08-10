@@ -35,6 +35,8 @@ public class RestApi {
 
         menus.put("1W9ZqwvalNYdbUkLfRv98bq21lGLqdjUoUkTLjPQBDyM", "Itouya");
 
+        On.get("/alive").json(()-> "ok");
+        
         On.get("/menus").json(
                 (Req req, Resp response) -> {
                     response.header("Access-Control-Allow-Origin", "*");

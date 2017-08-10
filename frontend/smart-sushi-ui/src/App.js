@@ -64,19 +64,25 @@ var Requirements = createReactClass({
       for(var i=0;i<this.props.dishes.length;i++){
           var dish = this.props.dishes[i];
           inputList.push(
-                          <div>
-                            <label key={dish}>
-                                {dish} : <input type="number" name={dish} defaultValue="0" onChange={this.props.onChange}></input>
-                            </label>
-                            <br />
-                          </div>
-                          );
+                <tr key={dish}>
+                  <td>
+                    {dish}
+                  </td>
+                  <td>
+                    <input type="number" name={dish} defaultValue="0" onChange={this.props.onChange}></input>
+                  </td>
+                </tr>
+                      );
       }
       return(
-              <div >
+              <div className="Fleft" >
               Select how many you want for each dish : 
               <br />
-              {inputList}
+              <table>
+                <tbody>
+                  {inputList}
+                </tbody>
+              </table>
                </div>
       );
 
@@ -86,6 +92,16 @@ var Requirements = createReactClass({
 });
 class Runner extends Component{
 
+
+  constructor() {
+    super();
+    this.state = {
+      bonus : [],
+      order : [],
+      price : 0
+    };
+  }
+
   handle = (e) => {
 
       console.log("solving",this.props);
@@ -94,8 +110,42 @@ class Runner extends Component{
         url: this.props.source+"solve",
         data: {'menuId' : this.props.menuId,'requirements' : this.props.requirements},
         dataType: "json",
-        success: function(result) {
+        success: (result) => {
               console.log(result);
+              var orderList = [];
+              for(var menuItem in result.order){
+                orderList.push(
+                    <tr key={menuItem}>
+                        <td>
+                            {menuItem}
+                        </td>
+                        <td>
+                            {result.order[menuItem]}
+                        </td>
+                    </tr>
+                  );
+              }
+
+              var bonusList = [];
+              for(var bonusItem in result.bonus){
+                bonusList.push(
+
+                      <tr key={bonusItem}>
+                          <td>
+                              {bonusItem}
+                          </td>
+                          <td>
+                              {result.bonus[bonusItem]}
+                          </td>
+                      </tr>
+
+
+                  )
+
+              }
+
+
+              this.setState({order : orderList,price : result.price, bonus : bonusList});
             }
       });
       
@@ -105,7 +155,43 @@ class Runner extends Component{
 render() {
   if(this.props.menuId){
     return (
+      <div className="Runner">
           <button onClick={this.handle}>Find cheapest order !</button>
+          
+          {this.state.price ?
+              <div>
+          <h3>Results</h3>
+          <h4>Total cost : {this.state.price} €</h4>
+
+          <h4>Order</h4>
+          <table>
+            <thead>
+                <tr>
+                    <td> Menu item </td>
+                    <td> Quantity </td>
+               </tr>
+            </thead>
+            <tbody>
+                 {this.state.order}
+            </tbody>
+          </table>
+
+
+          <h4>Bonus dishes</h4>
+          <table>
+            <thead>
+                <tr>
+                    <td> Dish </td>
+                    <td> Quantity </td>
+               </tr>
+            </thead>
+            <tbody>
+                 {this.state.bonus}
+            </tbody>
+          </table>
+          </div>
+          :null}
+      </div>
      )
   }
   else{
@@ -146,11 +232,11 @@ class App extends Component {
 
   render() {      
     return (
-            <div>
-                <MenuSelect source="http://localhost:8080/" onChange={this.menuSelectHandler}  />
-                <br />
-                <Requirements dishes={this.state.dishes} onChange={this.dishAddedHandler}></Requirements>
-                <Runner source="http://localhost:8080/" menuId={this.state.menuId} requirements={this.state.requirements} />
+         <div>
+              <MenuSelect source="http://localhost:8080/" onChange={this.menuSelectHandler}  />
+              <br />
+              <Requirements dishes={this.state.dishes} onChange={this.dishAddedHandler}></Requirements>
+              <Runner source="http://localhost:8080/" menuId={this.state.menuId} requirements={this.state.requirements} />
          </div>
     );
   }
