@@ -34,6 +34,10 @@ We can order :
 M1x2 + M3 
 total = 2x9 + 10 = 28€
 
+## Usage 
+At this point, you can only use it in java (https://github.com/cyterdan/smartSushi/blob/master/backend/src/main/java/xyz/cyterdan/smartsushi/JapaneseMenu.java)
+
+A web ui is in progress
 
 ## Adding a menu
 
