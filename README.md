@@ -39,9 +39,10 @@ This problem is a variant of the set cover problem. Specifically Multi-Set-Multi
 
 
 ## Usage 
-At this point, you can only use it in java (https://github.com/cyterdan/smartSushi/blob/master/backend/src/main/java/xyz/cyterdan/smartsushi/JapaneseMenu.java)
+At this point, main usage is in java (https://github.com/cyterdan/smartSushi/blob/master/backend/src/main/java/xyz/cyterdan/smartsushi/JapaneseMenu.java)
 
 A web ui is in progress
+https://sushi.cyterdan.xyz/
 
 ## Adding a menu
 
