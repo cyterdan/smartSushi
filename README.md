@@ -9,13 +9,13 @@ depending on what he want's to eat.
 This is inefficient, as each person may end up ordering things that he did not wanted.
 
 For example, a simplified menu has the following items : 
-- M1 : 2xSashimi, 3x Sushi , 1 salad for 9€
+- M1 : 4xSashimi, 3x Sushi , 1 salad for 9€
 - M2 : 10xSashimi for 12€
 - M3 : 8xSushi for 10€
 - M4 : 1xSalad for 2€
 
 3 persons (A,B,C) are ordering. 
-A wants 2 Sashimi and 3 Sushi
+A wants 3 Sashimi and 3 Sushi
 B Wants 8 Sushi and 1 salad
 C Wants 5 Sashimi and 1 salad 
 
@@ -26,6 +26,10 @@ If each person was ordering alone :
 total = 9+10+14 = 33€
 
 If we aggregate the requirements, we would require : 
-7 sashimi
+8 sashimi
 11 sushi
 2 salads
+
+We can order : 
+M1x2 + M3 
+total = 2x9 + 10 = 28€
