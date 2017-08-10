@@ -33,3 +33,11 @@ If we aggregate the requirements, we would require :
 We can order : 
 M1x2 + M3 
 total = 2x9 + 10 = 28€
+
+
+## Adding a menu
+
+here's an example of a menu for a restaurant called Itouya
+https://docs.google.com/spreadsheets/d/1W9ZqwvalNYdbUkLfRv98bq21lGLqdjUoUkTLjPQBDyM/edit#gid=0
+
+to add a menu, clone and modify this worksheet
