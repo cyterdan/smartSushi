@@ -34,6 +34,10 @@ We can order :
 M1x2 + M3 
 total = 2x9 + 10 = 28€
 
+## How
+This problem is a variant of the set cover problem. Specifically Multi-Set-Multi-Cover problem.
+
+
 ## Usage 
 At this point, you can only use it in java (https://github.com/cyterdan/smartSushi/blob/master/backend/src/main/java/xyz/cyterdan/smartsushi/JapaneseMenu.java)
 
