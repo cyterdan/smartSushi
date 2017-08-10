@@ -69,7 +69,7 @@ var Requirements = createReactClass({
                     {dish}
                   </td>
                   <td>
-                    <input type="number" name={dish} defaultValue="0" onChange={this.props.onChange}></input>
+                    <input type="number" min="0" name={dish} defaultValue="0" onChange={this.props.onChange}></input>
                   </td>
                 </tr>
                       );
@@ -98,13 +98,15 @@ class Runner extends Component{
     this.state = {
       bonus : [],
       order : [],
-      price : 0
+      price : 0,
+      processing : false
     };
   }
 
   handle = (e) => {
 
       console.log("solving",this.props);
+      this.setState({processing:true});
       $.ajax({
         type: "POST",
         url: this.props.source+"solve",
@@ -145,7 +147,7 @@ class Runner extends Component{
               }
 
 
-              this.setState({order : orderList,price : result.price, bonus : bonusList});
+              this.setState({order : orderList,price : result.price, bonus : bonusList,processing:false});
             }
       });
       
@@ -156,12 +158,12 @@ render() {
   if(this.props.menuId){
     return (
       <div className="Runner">
-          <button onClick={this.handle}>Find cheapest order !</button>
+          <button disabled={this.state.processing} onClick={this.handle}>{this.state.processing?"Working... ":"Find cheapest order !"}</button>
           
           {this.state.price ?
               <div>
           <h3>Results</h3>
-          <h4>Total cost : {this.state.price} €</h4>
+          <h4>Total cost : {Math.round(this.state.price * 100) / 100} €</h4>
 
           <h4>Order</h4>
           <table>
@@ -176,20 +178,24 @@ render() {
             </tbody>
           </table>
 
-
-          <h4>Bonus dishes</h4>
-          <table>
-            <thead>
-                <tr>
-                    <td> Dish </td>
-                    <td> Quantity </td>
-               </tr>
-            </thead>
-            <tbody>
-                 {this.state.bonus}
-            </tbody>
-          </table>
+          {this.state.bonus.length>0? 
+          <div>
+            <h4>Bonus dishes</h4>
+            <table>
+              <thead>
+                  <tr>
+                      <td> Dish </td>
+                      <td> Quantity </td>
+                 </tr>
+              </thead>
+              <tbody>
+                   {this.state.bonus}
+              </tbody>
+            </table>
           </div>
+          :null}
+          </div>
+
           :null}
       </div>
      )
@@ -236,7 +242,7 @@ class App extends Component {
               <MenuSelect source="http://localhost:8080/" onChange={this.menuSelectHandler}  />
               <br />
               <Requirements dishes={this.state.dishes} onChange={this.dishAddedHandler}></Requirements>
-              <Runner source="http://localhost:8080/" menuId={this.state.menuId} requirements={this.state.requirements} />
+              <Runner source="http://localhost:8080/"  menuId={this.state.menuId} requirements={this.state.requirements} />
          </div>
     );
   }

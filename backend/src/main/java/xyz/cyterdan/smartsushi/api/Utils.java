@@ -17,9 +17,14 @@ public class Utils {
         for (String key : posted.keySet()) {
             if (key.startsWith("requirements[")) {
                 String dishName = key.replace("requirements[", "").replace("]", "");
-                Integer quantity = Integer.valueOf(posted.get(key).toString());
-                if (quantity > 0) {
-                    builder.addRequirement(new Dish(dishName), quantity);
+                try {
+                    Integer quantity = Integer.valueOf(posted.get(key).toString());
+                    if (quantity > 0) {
+                        builder.addRequirement(new Dish(dishName), quantity);
+                    }
+
+                } catch (NumberFormatException nfe) {
+                    //ignore this dish
                 }
 
             }
